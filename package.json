@@ -1,6 +1,6 @@
 {
   "name": "queryparams",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Parse and coerce query string and set defaults",
   "main": "index.js",
   "repository": {
