@@ -1,5 +1,5 @@
-var querystring = require('./lib/querystring');
+var queryparams = require('./lib/queryparams');
 
 module.exports = function(defaults) {
-  querystring(window.location.search.slice(1), defaults || {});
+  queryparams(window.location.search.slice(1), defaults || {});
 };
