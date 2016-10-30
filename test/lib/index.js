@@ -1,4 +1,4 @@
-var queryparams = require('../../lib/queryparams');
+var queryparams = require('../../lib/index');
 
 describe('queryparams', function() {
   it('parses the query string', function() {

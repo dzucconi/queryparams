@@ -1,6 +1,6 @@
 # queryparams
 
-Parse and coerce the query string + simply set defaults.
+Parse and coerce query string. Set defaults and enforce a schema.
 
 ## Installation
 
@@ -11,14 +11,49 @@ npm i queryparams --save
 ## Usage
 
 ```javascript
-const queryparams = require('queryparams');
+window.location.search === '?speed=200&color=blue'; // true
+```
 
-const PARAMS = queryparams({
-  somedefault: true,
+## Defaults
+
+```javascript
+import queryparams from 'queryparams';
+
+const CONFIG = queryparams({
+  visible: true,
   speed: 500,
-  color: 'blue'
+  color: 'red',
 });
 
-// url has a querystring of `?speed=200&fate=sealed`
-// PARAMS => { somedefault: true, speed: 200, color: 'blue', fate: 'sealed' };
+isEqual(CONFIG, {
+  visible: true,
+  speed: 200,
+  color: 'blue',
+}); // true
+```
+
+## Schema
+
+```javascript
+isEqual(queryparams.schema(), {
+  visible: 'boolean',
+  speed: 'number',
+  color: 'string',
+}); // true
+```
+
+## Reconfigure
+
+```javascript
+window.queryparams = require('queryparams');
+
+queryparams({
+  message: 'default',
+  size: 9,
+});
+
+queryparams({
+  message: 'new',
+  size: 5,
+}); // redirects to `?message=new&size=5`
 ```
