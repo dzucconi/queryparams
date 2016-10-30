@@ -14,7 +14,8 @@ var __private__ = {
 
 var fn = function(defaults) {
   fn.defaults = defaults || {};
-  return queryparams(__private__.querystring(), fn.defaults);
+  fn.options = queryparams(__private__.querystring(), fn.defaults);
+  return fn.options;
 };
 
 fn.__private__ = __private__;
