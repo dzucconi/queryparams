@@ -45,14 +45,15 @@ isEqual(queryparams.schema(), {
 ## Reconfigure
 
 ```javascript
-window.queryparams = require('queryparams');
+window.parameters = require('queryparams');
 
-queryparams({
+parameters({
   message: 'default',
   size: 9,
 });
 
-queryparams({
+// From a console
+parameters.reconfigure({
   message: 'new',
   size: 5,
 }); // redirects to `?message=new&size=5`
