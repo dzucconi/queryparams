@@ -75,4 +75,23 @@ describe('queryparams', function() {
         .should.be.false();
     });
   });
+
+  describe('encode', function() {
+    it('returns a valid query string', function() {
+      queryparams.encode({
+        message: 'foobar',
+        amount: 2.5,
+      })
+        .should.equal('message=foobar&amount=2.5');
+    });
+
+    it('throws an error if the schema does not match', function() {
+      (function() {
+        queryparams.encode({
+          message: 'foobar',
+          amount: 'wrong',
+        });
+      }).should.throw(Error);
+    });
+  });
 });

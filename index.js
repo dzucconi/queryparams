@@ -28,4 +28,8 @@ fn.reconfigure = function(options) {
   return __private__.redirect(reconfigure(options || {}, fn.defaults));
 };
 
+fn.encode = function(options) {
+  return reconfigure(options || {}, fn.defaults);
+};
+
 module.exports = fn;
