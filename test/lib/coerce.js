@@ -23,4 +23,14 @@ describe('coerce', function() {
   it('leaves strings alone', function() {
     coerce({ foo: 'hello' }).should.eql({ foo: 'hello' });
   });
+
+  it('coerces arrays of values', function() {
+    coerce({ foo: ['1', '1.5', 'hello', 'null', 'true', false, 1]})
+      .should.eql({ foo: [1, 1.5, 'hello', null, true, false, 1] })
+  });
+
+  it('coerces arrays with a single value', function() {
+    coerce({ foo: ['1']})
+      .should.eql({ foo: [1] });
+  });
 });
