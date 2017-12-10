@@ -38,11 +38,11 @@ const CONFIG = queryparams({
 });
 
 console.log(CONFIG)
-// => {
+/* => {
   visible: true,
   speed: 200,
-  color: 'blue',
-};
+  color: 'blue'
+}; */
 ```
 
 Any values set in the querystring override the default values. Default values are set in the resulting object along with information from the query string.
@@ -59,11 +59,11 @@ queryparams({
 });
 
 console.log(queryparams.schema())
-// => {
+/* => {
   visible: 'boolean',
   speed: 'number',
   color: 'string',
-};
+} */
 ```
 
 ## Reconfiguring the querystring
