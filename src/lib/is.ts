@@ -3,6 +3,6 @@ export const isEmpty = (x: any) => {
   return Object.keys(x).length === 0 && x.constructor === Object;
 };
 
-export const isNull = (x: any) => x === null;
+export const isNull = (x: unknown) => x === null;
 
 export const isArray = Array.isArray;

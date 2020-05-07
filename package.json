@@ -10,7 +10,8 @@
   },
   "scripts": {
     "clean": "rm -rf ./dist",
-    "compile": "yarn tsc",
+    "prepublishOnly": "yarn build",
+    "build": "yarn tsc",
     "test": "jest"
   },
   "keywords": [

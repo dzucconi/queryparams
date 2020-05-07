@@ -1,21 +1,25 @@
-import { queryParams, reconfigure, schema } from "./withDefaults";
+import { configure } from "./configure";
 
 declare var global: any;
 
-describe("withDefaults", () => {
+describe("configure", () => {
   beforeEach(() => {
     delete global.window.location;
     global.window = Object.create(window);
     global.window.location = {
       port: "123",
       protocol: "http:",
-      hostname: "localhost"
+      hostname: "localhost",
     };
   });
 
-  const { foo, bar, baz } = queryParams({ foo: "bar", bar: true, baz: 1 });
+  const {
+    params: { foo, bar, baz },
+    reconfigure,
+    schema,
+  } = configure({ foo: "bar", bar: true, baz: 1 });
 
-  describe("queryParams", () => {
+  describe("params", () => {
     it("returns the correct values", () => {
       expect(foo).toEqual("bar");
       expect(bar).toBe(true);
@@ -32,10 +36,10 @@ describe("withDefaults", () => {
 
   describe("schema", () => {
     it("prints the schema based on the defaults", () => {
-      expect(schema()).toEqual([
+      expect(schema).toEqual([
         { default: "bar", param: "foo", type: "string" },
         { default: true, param: "bar", type: "boolean" },
-        { default: 1, param: "baz", type: "number" }
+        { default: 1, param: "baz", type: "number" },
       ]);
     });
   });
