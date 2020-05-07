@@ -6,9 +6,9 @@ A library to help you receive and update parameters in the querystring.
 
 ## Why should I use it?
 
-* You want to limit the kinds of parameters you receive from the querystring.
-* You need to set some default values and want any values coming from the querystring to be cast as the same type.
-* You need a simple interface to reconfigure those values and redirect to a correctly updated querystring.
+- You want to limit the types of parameters you receive from the querystring.
+- You need to set some default values and want any values coming from the querystring to be cast as the same type.
+- You need a simple interface to reconfigure those values and redirect to a correctly updated querystring.
 
 ## Installation
 
@@ -22,60 +22,49 @@ npm i queryparams --save
 
 Assume we have a querystring with a value of:
 
-```javascript
-'?speed=200&color=blue';
+```ts
+"?speed=200&color=blue";
 ```
 
-## Set defaults
+## Set defaults and infer types
 
-```javascript
-import queryparams from 'queryparams';
+```ts
+import { configure } from "queryparams";
 
-const CONFIG = queryparams({
-  visible: true,
-  speed: 500,
-  color: 'red',
-});
+const { params } = configure({ visible: true, speed: 500, color: "red" });
 
-console.log(CONFIG)
-/* => {
-  visible: true,
-  speed: 200,
-  color: 'blue'
-}; */
+// params: {
+//   visible: boolean;
+//   speed: number;
+//   color: string;
+// }
 ```
 
-Any values set in the querystring override the default values. Default values are set in the resulting object along with information from the query string.
+Values in the querystring override the default values and are coerced into matching types.
 
-## Type coercion
-
-`queryparams` examines the types of defaults that are set and ensures any data you receive matches that type.
-
-```javascript
-queryparams({
+```ts
+const { schema } = configure({
   visible: true,
   speed: 500,
-  color: 'red',
+  color: "red",
 });
 
-console.log(queryparams.schema())
-/* => {
-  visible: 'boolean',
-  speed: 'number',
-  color: 'string',
-} */
+// schema => [
+//   { param: 'visible', default: true, type: 'boolean' },
+//   { param: 'speed', default: 500, type: 'number' },
+//   { param: 'color', default: 'red', type: 'string' }
+]
 ```
 
 ## Reconfiguring the querystring
 
-```javascript
-parameters({
-  message: 'default',
-  size: 9,
-});
+```ts
+const { reconfigure, encode } = configure({ message: "default", size: 9 });
 
-parameters.reconfigure({
-  message: 'new',
-  size: 5,
-}); // redirects to `?message=new&size=5`
+encode({ message: "next", size: 66 }); // => 'message=next&size=66'
+encode({ message: "next", size: "notanumber" }); // => Uncaught Error: size should be a number
+encode({ weird: true }); // => Uncaught Error: weird should be undefined
+
+// redirects to `?message=new&size=5`; enforces that types match defaults provided
+reconfigure({ message: "new", size: 5 });
 ```
