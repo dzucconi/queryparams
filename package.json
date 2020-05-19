@@ -27,7 +27,7 @@
     "auto": "9.34.0",
     "jest": "26.0.1",
     "ts-jest": "25.5.1",
-    "typescript": "3.9.2"
+    "typescript": "3.9.3"
   },
   "dependencies": {
     "qs": "^6.9.4"
