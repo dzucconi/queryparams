@@ -24,7 +24,7 @@
   "devDependencies": {
     "@types/jest": "25.2.3",
     "@types/qs": "6.9.4",
-    "auto": "9.50.11",
+    "auto": "9.51.0",
     "jest": "26.4.1",
     "ts-jest": "25.5.1",
     "typescript": "3.9.7"
