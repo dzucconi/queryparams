@@ -23,7 +23,7 @@
   "license": "MIT",
   "devDependencies": {
     "@types/jest": "25.2.3",
-    "@types/qs": "6.9.4",
+    "@types/qs": "6.9.5",
     "auto": "9.53.1",
     "jest": "26.4.2",
     "ts-jest": "25.5.1",
