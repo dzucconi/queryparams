@@ -4,7 +4,7 @@ import { encode as __encode__ } from "./lib/encode";
 import { redirect } from "./lib/util";
 import { Options } from "./types";
 
-export const configure = <T>(defaults: T) => {
+export const configure = <T>(defaults: T, queryString?: string) => {
   const encode = (nextParams: Options) => {
     return __encode__(nextParams, defaults);
   };
@@ -15,7 +15,7 @@ export const configure = <T>(defaults: T) => {
 
   return {
     defaults,
-    params: __params__(defaults),
+    params: __params__(defaults, queryString),
     schema: __schema__(defaults),
     encode,
     reconfigure,
