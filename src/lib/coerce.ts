@@ -1,8 +1,8 @@
 import { isArray } from "./is";
 
-type Input = { [key: string]: any };
-type Coerced = string | number | boolean | null | Coerced[];
-type Output = { [key: string]: Coerced };
+export type Input = { [key: string]: any };
+export type Coerced = string | number | boolean | null | Coerced[];
+export type Output = { [key: string]: Coerced };
 
 const coerceNumber = (v: any) => +v!;
 const coerceString = (v: any) => `${v}`;
