@@ -30,7 +30,7 @@
     "typescript": "4.2.3"
   },
   "dependencies": {
-    "qs": "^6.9.4"
+    "qs": "^6.9.6"
   },
   "auto": {
     "plugins": [
