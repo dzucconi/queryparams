@@ -1,8 +1,9 @@
 import { params as __params__ } from "./lib/params";
 import { schema as __schema__ } from "./lib/schema";
 import { encode as __encode__ } from "./lib/encode";
-import { redirect } from "./lib/util";
+import { getQueryString, redirect } from "./lib/util";
 import { Options } from "./types";
+import { parse } from "./lib/parse";
 
 export const configure = <T>(defaults: T, queryString?: string) => {
   const encode = (nextParams: Options) => {
@@ -13,9 +14,12 @@ export const configure = <T>(defaults: T, queryString?: string) => {
     return redirect(encode(nextParams));
   };
 
+  const query = parse(queryString ?? getQueryString());
+
   return {
     defaults,
-    params: __params__(defaults, queryString),
+    query,
+    params: __params__(defaults, query),
     schema: __schema__(defaults),
     encode,
     reconfigure,
