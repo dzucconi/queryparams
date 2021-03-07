@@ -51,6 +51,7 @@ describe("configure", () => {
   describe("with passed querystring", () => {
     const {
       params: { foo, bar, baz },
+      query,
     } = configure(
       { foo: "qux", bar: false, baz: 1 },
       "?foo=baz&bar=false&baz=2"
@@ -58,9 +59,15 @@ describe("configure", () => {
 
     describe("params", () => {
       it("returns the correct values", () => {
-        expect(foo).toEqual("qux");
+        expect(foo).toEqual("baz");
         expect(bar).toBe(false);
         expect(baz).toBe(2);
+      });
+    });
+
+    describe("query", () => {
+      it("returns the parsed (but un-coerced) query string", () => {
+        expect(query).toEqual({ foo: "baz", bar: "false", baz: "2" });
       });
     });
   });
