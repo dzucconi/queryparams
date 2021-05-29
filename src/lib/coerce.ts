@@ -11,25 +11,20 @@ const coerceBoolean = (v: any) => {
   return false;
 };
 
-export const intoType = (
-  v: any,
-  type:
-    | "string"
-    | "number"
-    | "bigint"
-    | "boolean"
-    | "symbol"
-    | "undefined"
-    | "object"
-    | "function"
-) => {
-  switch (type) {
+const typeOf = (input: Input) => {
+  return typeof input === "object" && isArray(input) ? "array" : typeof input;
+};
+
+export const intoType = (v: any, hint: any) => {
+  switch (typeOf(hint)) {
     case "number":
       return coerceNumber(v);
     case "string":
       return coerceString(v);
     case "boolean":
       return coerceBoolean(v);
+    case "array":
+      return v.map((x: any, i: number) => intoType(x, hint[i]));
   }
 
   // Falls through
@@ -53,11 +48,24 @@ export const coerceType = (v: any): Coerced => {
   }
 };
 
-export const coerce = (input: Input, hints?: Input): Output => {
+export const coerce = (
+  input: Input,
+  hints: Input = {},
+  /**
+   * `strictArrays` enforces type AND length
+   */
+  options: { strictArrays: boolean } = { strictArrays: false }
+): Output => {
   return Object.keys(input).reduce<Input>((memo, key) => {
     const v = input[key];
-    memo[key] =
-      hints && hints[key] ? intoType(v, typeof hints[key]) : coerceType(v);
+
+    if (typeOf(hints[key]) === "array" && !options.strictArrays) {
+      memo[key] = coerceType(v);
+    } else {
+      memo[key] =
+        hints[key] !== undefined ? intoType(v, hints[key]) : coerceType(v);
+    }
+
     return memo;
   }, {});
 };

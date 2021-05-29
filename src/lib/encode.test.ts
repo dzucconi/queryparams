@@ -1,5 +1,6 @@
 import { encode } from "./encode";
 import { params } from "./params";
+import { parse } from "./parse";
 
 describe("encode", () => {
   it("produces a new querystring given a new set of params", () => {
@@ -18,5 +19,17 @@ describe("encode", () => {
     );
 
     expect(params({}, querystring)).toEqual(options);
+  });
+
+  it("encodes nested arrays correctly", () => {
+    const options = {
+      ops: [
+        ["a", "b", "c"],
+        ["d", "e", "f"],
+      ],
+    };
+
+    const querystring = encode(options);
+    expect(parse(querystring)).toEqual(options);
   });
 });
