@@ -1,6 +1,6 @@
 {
   "name": "queryparams",
-  "version": "0.0.0-development",
+  "version": "1.2.2",
   "description": "Parse and coerce query string. Set defaults and enforce a schema.",
   "main": "dist/index.js",
   "types": "dist/index.d.js",
